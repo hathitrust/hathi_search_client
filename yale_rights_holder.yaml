@@ -1,0 +1,8 @@
+---
+name: yale_rights_holder
+indexes: 
+  -  author
+  -  author2
+  -  publisher
+terms:
+  - '"Yale"'
