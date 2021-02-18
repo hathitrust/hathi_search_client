@@ -1,0 +1,9 @@
+---
+name: penn_state_rights_holder
+indexes: 
+  -  author
+  -  author2
+  -  publisher
+terms:
+  - '"Pennsylvania State University"'
+  - '"Pennsylvania State College"'
