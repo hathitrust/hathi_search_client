@@ -15,6 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache ruby gems
+        uses: actions/cache@v2
+        env:
+          cache-name: ruby-gems
+        with:
+          path: .gems
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
+
       - name: Set up tests
         run: |
           docker-compose build
