@@ -23,10 +23,10 @@ class Search
     @solr = Net::HTTP.new(ENV['solr_host'], ENV['solr_port'])
   end
 
-  def search_uri(ps = page_size)
+  def search_uri(num_rows = page_size)
     base = '/solr/catalog/select?'
     enum = [['q', @query.to_str],
-            ['rows', ps],
+            ['rows', num_rows],
             ['start', page_start],
             %w[wt json],
             ['json.nl', 'arrarr'],
