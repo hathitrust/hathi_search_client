@@ -1,9 +1,9 @@
-name: Docker Build Default Branch
+name: Docker Build Master
 
 on:
   workflow_run:
     workflows: [ 'Run Tests' ]
-    branches: [ $default_branch ]
+    branches: [ 'master' ]
     types: [ completed ]
 
 jobs:

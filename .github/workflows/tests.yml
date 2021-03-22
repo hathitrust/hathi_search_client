@@ -3,7 +3,7 @@ name: Run Tests
 on:
   push:
     branches:
-      - $default_branch
+      - master
 
   pull_request:
 
