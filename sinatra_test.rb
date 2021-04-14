@@ -3,7 +3,7 @@
 require 'sinatra'
 
 def authenticate!
-  halt 403 unless request.get_header('HTTP_X_REMOTE_USER') == 'admin@default.invalid'
+  halt 403 unless request.get_header('HTTP_X_REMOTE_USER') == 'jstever@umich.edu'
 end
 
 before do
@@ -11,5 +11,7 @@ before do
 end
 
 get '/' do
-  'Hello, world!'
+  #'hello world!'
+  s = Search.new(%w[author publisher], ['Australian National University', 'ANU'])
+  "# results : #{s.records.count}"
 end
