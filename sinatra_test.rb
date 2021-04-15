@@ -10,7 +10,7 @@ before do
   #authenticate!
 end
 
-get '/' do
+get '/search-client' do
   #'hello world!'
   remote_user = request.get_header('HTTP_X_REMOTE_USER')
   "remote user: #{remote_user}"
