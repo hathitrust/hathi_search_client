@@ -1,12 +1,36 @@
 <html>
+<head>
+<script type='text/javascript'>
+  function addTerms(){
+    var search_terms = document.getElementById("search_terms");
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = "terms[]";
+    search_terms.appendChild(input);
+    search_terms.appendChild(document.createElement("br"));
+  }
+</script>
 <body>
 <h1>Rights Holder Reports</h1>
 <form>
-  <label for="index">Index:</label>
-  <input type="text" name="index" >
-  <label for="term">Term:</label>
-  <input type="text" name="term" >
-  <input type="submit" name="search" value="search">
+  <fieldset>
+  <legend>Indexes</legend>
+  <input type="checkbox" name="indexes[]" value="author" <% if @indexes.include? "author" %>checked<% end %>/>Author<br />
+  <input type="checkbox" name="indexes[]" value="publisher" />Publisher<br/>
+  <input type="checkbox" name="indexes[]" value="title" />Title<br/>
+  </fieldset>
+  <fieldset>
+  <legend>Search Terms</legend>
+  <div id="search_terms">
+  <% @terms.each do |term| %>
+    <input type="text" name="terms[]" value="<%= term %>"><br/>
+  <% end %>
+  <input type="text" name="terms[]" ><br/>
+  </div>
+  <a href="#" id="add_terms" onclick="addTerms()">Add Term</a>
+  </fieldset>
+  <input type="submit" name="search" value="Search">
 </form>
+<% if @s %>Num results: <%=@s.num_results%> <% end %>
 </body>
 </html>
