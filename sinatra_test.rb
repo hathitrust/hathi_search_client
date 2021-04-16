@@ -7,9 +7,9 @@ def authenticate!
 end
 
 before do
-  authenticate!
+  #authenticate!
 end
 
 get '/' do
-  'Hello, world!'
+  erb :search_form 
 end
