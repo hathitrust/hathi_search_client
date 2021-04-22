@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
+require 'services'
+
 class HTItem
-  attr_accessor :ht_id, :rights, :enum_chron, :pub_date, :db_rights, :db_reason
+  attr_accessor :ht_id, :rights, :enum_chron, :pub_date, :rights_attribute, :rights_reason
 
   def initialize(solr_item)
     @ht_id = solr_item['htid']
     @enum_chron = solr_item['enumcron'] || ''
     @pub_date = solr_item['enum_pubdate'] || ''
-    @rights = solr_item['rights'][0]
-    @db_rights, @db_reason = fetch_rights_and_reason
-  end
-
-  def fetch_rights_and_reason
-    [nil, nil]
+    @rights = Services.rights.new(item_id: @ht_id)
+    @rights_attribute = @rights.attribute
+    @rights_reason = @rights.reason
   end
 end

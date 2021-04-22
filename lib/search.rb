@@ -67,8 +67,7 @@ class Search
        item_pub_date
        enum_chron
        rights
-       db_rights
-       db_reason].join("\t")
+       reason].join("\t")
   end
 
   def records_to_tsv
@@ -84,9 +83,8 @@ class Search
                ht_item.ht_id,
                ht_item.pub_date,
                ht_item.enum_chron,
-               ht_item.rights,
-               ht_item.db_rights,
-               ht_item.db_reason].join("\t")
+               ht_item.rights_attribute,
+               ht_item.rights_reason].join("\t")
       end
     end
   end
