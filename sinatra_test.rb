@@ -5,13 +5,14 @@ require 'sinatra'
 
 require 'query'
 require 'search'
+require 'pp'
 
 def authenticate!
-  halt 403 unless request.get_header('HTTP_X_REMOTE_USER') == 'admin@default.invalid'
+  halt 403 unless request.get_header('HTTP_X_REMOTE_USER') == 'jstever@umich.edu'
 end
 
 before do
-  #authenticate!
+  authenticate!
 end
 
 get '/search-client' do
@@ -21,5 +22,6 @@ get '/search-client' do
     @indexes << "author2" if @indexes.include? "author"
     @s = Search.new(@indexes, @terms)
   end
+  PP.pp ENV
   erb :search_form 
 end

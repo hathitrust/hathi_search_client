@@ -31,6 +31,7 @@
   </fieldset>
   <input type="submit" name="search" value="Search">
 </form>
+port:<%=ENV['SOLR_PORT']%> host:<%ENV['SOLR_HOST']%>
 <% if @s %>Num results: <%=@s.num_results%> <% end %>
 </body>
 </html>
