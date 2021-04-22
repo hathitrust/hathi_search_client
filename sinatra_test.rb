@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
+$LOAD_PATH << './lib'
 require 'sinatra'
+
+require 'query'
+require 'search'
+require 'pp'
 
 def authenticate!
   halt 403 unless request.get_header('HTTP_X_REMOTE_USER') == 'jstever@umich.edu'
@@ -11,9 +16,12 @@ before do
 end
 
 get '/search-client' do
-  #'hello world!'
-  remote_user = request.get_header('HTTP_X_REMOTE_USER')
-  "remote user: #{remote_user}"
-  #s = Search.new(%w[author publisher], ['Australian National University', 'ANU'])
-  #"# results : #{s.records.count}"
+  @indexes = params[:indexes] || []
+  @terms = (params[:terms] || []).reject {|t| t == ''}
+  if @indexes.any? and @terms.any?
+    @indexes << "author2" if @indexes.include? "author"
+    @s = Search.new(@indexes, @terms)
+  end
+  PP.pp ENV
+  erb :search_form 
 end
