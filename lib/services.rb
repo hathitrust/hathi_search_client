@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+<<<<<<< HEAD
 require "dotenv"
 Dotenv.load(".env")
 require "canister"

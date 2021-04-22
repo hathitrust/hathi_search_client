@@ -1,6 +1,7 @@
 (import 'ksonnet-util/kausal.libsonnet') +
 (import './external_ip_service.libsonnet') +
 (import './config.libsonnet') +
+(import './envVar.libsonnet') +
 {
   local deploy = $.apps.v1.deployment,
   local container = $.core.v1.container,
@@ -18,6 +19,8 @@
         containers=[
           container.new(config.web.name, images.web)
                    .withPorts([port.new('ui', config.web.port)])
+                   .withImagePullPolicy('Always')
+          + container.withEnv( $._envVar,),
         ]
       ),
 

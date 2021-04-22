@@ -20,7 +20,7 @@ class Search
     @page = 0
     @page_size = 100_000
     @query = Query.new(@indexes, @terms)
-    @solr = Net::HTTP.new(ENV['solr_host'], ENV['solr_port'])
+    @solr = Net::HTTP.new(ENV['SOLR_HOST'], ENV['SOLR_PORT'])
   end
 
   def search_uri(num_rows = page_size)
