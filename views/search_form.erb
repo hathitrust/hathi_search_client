@@ -16,8 +16,8 @@
   <fieldset>
   <legend>Indexes</legend>
   <input type="checkbox" name="indexes[]" value="author" <% if @indexes.include? "author" %>checked<% end %>/>Author<br />
-  <input type="checkbox" name="indexes[]" value="publisher" />Publisher<br/>
-  <input type="checkbox" name="indexes[]" value="title" />Title<br/>
+  <input type="checkbox" name="indexes[]" value="publisher" <% if @indexes.include? "publisher" %>checked<% end %>/>Publisher<br/>
+  <input type="checkbox" name="indexes[]" value="title" <% if @indexes.include? "title" %>checked<% end %>/>Title<br/>
   </fieldset>
   <fieldset>
   <legend>Search Terms</legend>
@@ -29,10 +29,10 @@
   </div>
   <a href="#" id="add_terms" onclick="addTerms()">Add Term</a>
   </fieldset>
-  <input type="submit" name="results" value="Search">
+  <input type="submit" name="search" value="Search">
   <% if @s %>
     Num results: <%=@s.num_results%> 
-    <input type="submit" target="_blank" value="Get TSV">
+    <input type="submit" name="results" target="_blank" value="Get TSV">
   <% end %>
 </form>
 port:<%=ENV['SOLR_PORT']%> host:<%=ENV['SOLR_HOST']%>
