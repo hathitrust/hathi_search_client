@@ -29,9 +29,12 @@
   </div>
   <a href="#" id="add_terms" onclick="addTerms()">Add Term</a>
   </fieldset>
-  <input type="submit" name="search" value="Search">
+  <input type="submit" name="results" value="Search">
+  <% if @s %>
+    Num results: <%=@s.num_results%> 
+    <input type="submit" target="_blank" value="Get TSV">
+  <% end %>
 </form>
-port:<%=ENV['SOLR_PORT']%> host:<%ENV['SOLR_HOST']%>
-<% if @s %>Num results: <%=@s.num_results%> <% end %>
+port:<%=ENV['SOLR_PORT']%> host:<%=ENV['SOLR_HOST']%>
 </body>
 </html>

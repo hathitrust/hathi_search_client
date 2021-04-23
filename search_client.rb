@@ -23,5 +23,9 @@ get '/search-client' do
     @s = Search.new(@indexes, @terms)
   end
   PP.pp ENV
-  erb :search_form
+  if params[:results] == "Get TSV"
+    erb :search_results
+  else
+    erb :search_form
+  end
 end
