@@ -12,16 +12,16 @@ def authenticate!
 end
 
 before do
-  #authenticate!
+  # authenticate!
 end
 
 get '/search-client' do
   @indexes = params[:indexes] || []
-  @terms = (params[:terms] || []).reject {|t| t == ''}
-  if @indexes.any? and @terms.any?
-    @indexes << "author2" if @indexes.include? "author"
+  @terms = (params[:terms] || []).reject { |t| t == '' }
+  if @indexes.any? && @terms.any?
+    @indexes << 'author2' if @indexes.include? 'author'
     @s = Search.new(@indexes, @terms)
   end
   PP.pp ENV
-  erb :search_form 
+  erb :search_form
 end
