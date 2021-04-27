@@ -1,0 +1,11 @@
+Metrics/ParameterLists:
+  Exclude:
+    - 'lib/rights_database/rights.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/fixtures/rights_attributes.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/fixtures/rights_attributes.rb'
