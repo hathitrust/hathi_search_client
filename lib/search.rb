@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 require 'dotenv'
-require 'net/http'
 require 'query'
 require 'pry'
 require 'uri'
 require 'catalog_record'
 require 'json'
+require 'services'
 
 class Search
-  attr_accessor :indexes, :terms, :page, :page_size, :fields, :solr, :query
+  attr_accessor :indexes, :terms, :page, :page_size, :fields, :query
 
   Dotenv.load
 
@@ -20,7 +20,6 @@ class Search
     @page = 0
     @page_size = 100_000
     @query = Query.new(@indexes, @terms)
-    @solr = Net::HTTP.new(ENV['SOLR_HOST'], ENV['SOLR_PORT'])
   end
 
   def search_uri(num_rows = page_size)
@@ -41,7 +40,7 @@ class Search
   def num_results
     return @num_results unless @num_results.nil?
 
-    response = JSON.parse(@solr.get(search_uri(0)).body)
+    response = JSON.parse(Services.solr_catalog.get(search_uri(0)).body)
     @num_results = response['response']['numFound']
   end
 
@@ -50,7 +49,7 @@ class Search
 
     @records = []
     while num_results > page_start
-      response = JSON.parse(@solr.get(search_uri).body)
+      response = JSON.parse(Services.solr_catalog.get(search_uri).body)
       response['response']['docs'].map { |doc| @records << CatalogRecord.new_from_doc(doc) }
       @page += 1
     end

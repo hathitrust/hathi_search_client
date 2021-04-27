@@ -72,7 +72,7 @@ module RightsDatabase
 
         args[:host] ||= 'localhost'
         args[:adapter] ||= :mysql2
-
+        args[:database] ||= 'ht_rights'
         args
       end
     end

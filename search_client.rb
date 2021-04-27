@@ -5,10 +5,10 @@ require 'sinatra'
 
 require 'query'
 require 'search'
-require 'pp'
+require 'time'
 
 def authenticate!
-  halt 403 unless request.get_header('HTTP_X_REMOTE_USER') == 'jstever@umich.edu'
+  halt 403 unless ['jstever@umich.edu', 'keden@umich.edu'].include? request.get_header('HTTP_X_REMOTE_USER')
 end
 
 before do
@@ -22,8 +22,9 @@ get '/search-client' do
     @indexes << 'author2' if @indexes.include? 'author'
     @s = Search.new(@indexes, @terms)
   end
-  PP.pp ENV
-  if params[:results] == "Get TSV"
+  if params[:results] == 'Get TSV'
+    content_type('text/plain')
+    attachment(Time.now.strftime('results_%Y-%m-%d_%s.tsv'))
     erb :search_results
   else
     erb :search_form
