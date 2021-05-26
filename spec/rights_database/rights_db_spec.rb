@@ -26,12 +26,12 @@ RSpec.describe RightsDatabase::RightsDB do
   end
 
   describe 'Connecting' do
-    xit 'connects with url' do
+    it 'connects with url' do
       c = described_class.connection(url: connection_string)
       expect(c.tables).to include(:reasons)
     end
 
-    xit 'connects with opts' do
+    it 'connects with opts' do
       c = described_class.connection(opts: opts)
       expect(c.tables).to include(:reasons)
     end

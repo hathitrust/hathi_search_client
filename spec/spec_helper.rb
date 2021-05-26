@@ -2,8 +2,6 @@
 
 require 'pry'
 require 'simplecov'
-require 'fixtures/rights_reasons'
-require 'fixtures/rights_attributes'
 require 'fixtures/rights'
 require 'factory_bot'
 
@@ -110,14 +108,8 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
+    mock_rights
   end
 
-  config.before(:all) do
-    # Ensure we don't try to use DB for tests by default and that we have
-    # mock rights data to use in tests
-    Services.register(:rights_db) { nil }
-    Services.register(:rights) { mock_rights }
-    Services.register(:rights_attributes) { mock_attributes }
-    Services.register(:rights_reasons) { mock_reasons }
-  end
+  
 end

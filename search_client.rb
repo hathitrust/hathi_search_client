@@ -13,7 +13,7 @@ def authenticate!
 end
 
 before do
-  # authenticate!
+  authenticate!
 end
 
 get '/search-client' do
