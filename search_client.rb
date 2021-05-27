@@ -8,8 +8,7 @@ require 'search'
 require 'time'
 
 def authenticate!
-  halt 403 unless ['jstever@umich.edu', 'keden@umich.edu',
-                   'aelkiss@umich.edu'].include? request.get_header('HTTP_X_REMOTE_USER')
+  halt 403 unless Services.users.include? request.get_header('HTTP_X_REMOTE_USER')
 end
 
 before do
