@@ -110,6 +110,4 @@ RSpec.configure do |config|
     FactoryBot.find_definitions
     mock_rights
   end
-
-  
 end

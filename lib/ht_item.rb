@@ -10,7 +10,7 @@ class HTItem
     @enum_chron = solr_item['enumcron'] || ''
     @pub_date = solr_item['enum_pubdate'] || ''
     @rights = Services.rights.new(item_id: @ht_id)
-    @rights_attribute = @rights.attribute
-    @rights_reason = @rights.reason
+    @rights_attribute = @rights.attribute.name
+    @rights_reason = @rights.reason.name
   end
 end
