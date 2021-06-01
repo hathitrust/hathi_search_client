@@ -13,15 +13,15 @@ RSpec.describe HTItem do
     it 'extracts the fields we want from the solr record' do
       item = HTItem.new(solr_item)
       expect(item.ht_id).to eq('uva.x001592955')
-      expect(item.rights).to eq('cc-by-nc-nd-4.0')
+      expect(item.rights_attribute).to eq('cc-by-nc-nd-4.0')
       expect(item.enum_chron).to eq('')
       expect(item.pub_date).to eq('1983')
     end
 
-    xit 'pulls rights and rights reason from the rights database' do
+    it 'pulls rights and rights reason from the rights database' do
       item = HTItem.new(solr_item)
-      expect(item.db_reason).to eq("This isn't implemented yet.")
-      expect(item.db_rights).to eq('cc-by-nc-nd-4.0')
+      expect(item.rights_attribute).to eq('cc-by-nc-nd-4.0')
+      expect(item.rights_reason).to eq('con')
     end
   end
 end

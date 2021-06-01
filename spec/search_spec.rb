@@ -31,8 +31,7 @@ RSpec.describe Search do
                          '1983',
                          '',
                          'cc-by-nc-nd-4.0',
-                         '',
-                         ''].join("\t"))
+                         'con'].join("\t"))
     end
   end
 end
