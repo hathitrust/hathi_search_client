@@ -9,9 +9,9 @@ gem 'dotenv'
 gem 'httpclient'
 gem 'puma'
 gem 'sinatra'
-gem 'traject'
 gem 'sequel'
 gem 'mysql2'
+gem 'marc'
 
 group :development, :test do
   gem 'pry'

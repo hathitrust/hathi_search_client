@@ -58,10 +58,12 @@ class Search
 
   def header
     %w[Zephir_CID
+       rec_src_code
        title
        authors
        publisher
        title_pub_date
+       subject
        ht_id
        item_pub_date
        enum_chron
@@ -75,10 +77,12 @@ class Search
     records.each do |rec|
       rec.ht_items.each do |ht_item|
         yield [rec.zephir_cid,
+               rec.rec_src_code,
                rec.title,
                rec.authors.join('; '),
                rec.publisher.join('; '),
                rec.title_pub_date,
+               rec.subject,
                ht_item.ht_id,
                ht_item.pub_date,
                ht_item.enum_chron,
