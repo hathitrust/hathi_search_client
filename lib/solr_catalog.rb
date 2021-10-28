@@ -11,5 +11,6 @@ class SolrCatalog
     host = ENV['SOLR_HOST'] || 'solr-catalog'
     port = ENV['SOLR_PORT'] || '9033'
     @solr = Net::HTTP.new(host, port)
+    @solr.read_timeout = 120
   end
 end
