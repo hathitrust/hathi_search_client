@@ -20,7 +20,7 @@ class CatalogRecord
             authors: doc['author'] || [],
             publisher: doc['publisher'] || [],
             title_pub_date: doc['publishDate'],
-            subject: doc['topicStr'],
+            subject: doc['topicStr'] || [],
             ht_items: ht_items_from_json(doc['ht_json']) }
     new(rec)
   end

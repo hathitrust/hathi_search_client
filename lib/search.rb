@@ -10,6 +10,7 @@ require 'services'
 
 class Search
   attr_accessor :indexes, :terms, :page, :page_size, :fields, :query
+  attr_writer :records
 
   Dotenv.load
 
@@ -82,7 +83,7 @@ class Search
                rec.authors.join('; '),
                rec.publisher.join('; '),
                rec.title_pub_date,
-               rec.subject,
+               rec.subject.join('; '),
                ht_item.ht_id,
                ht_item.pub_date,
                ht_item.enum_chron,
