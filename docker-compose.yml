@@ -17,7 +17,7 @@ services:
       USERS_FILE: "config/users"
 
   mariadb:
-    image: hathitrust/db-image
+    image: ghcr.io/hathitrust/db-image
     restart: always
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1 
