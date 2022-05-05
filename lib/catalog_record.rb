@@ -22,7 +22,7 @@ class CatalogRecord
             title_pub_date: doc['publishDate'],
             subject: doc['topicStr'] || [],
             ht_items: ht_items_from_json(doc['ht_json']) }
-    new(rec)
+    new(**rec)
   end
 
   def self.ht_items_from_json(ht_json)
