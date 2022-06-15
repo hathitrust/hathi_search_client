@@ -3,19 +3,18 @@
 $LOAD_PATH << './lib'
 require 'sinatra'
 
+require 'omniauth'
+require 'omniauth_openid_connect'
 require 'query'
 require 'search'
 require 'time'
 
-def authenticate!
-  halt 403 unless Services.users.include? request.get_header('HTTP_X_REMOTE_USER')
-end
+enable :sessions
+set :session_secret, ENV['RACK_SESSION_SECRET']
 
-before do
-  authenticate!
-end
+require 'auth'
 
-get '/search-client' do
+get '/' do
   @indexes = params[:indexes] || []
   @terms = (params[:terms] || []).reject { |t| t == '' }
   if @indexes.any? && @terms.any?
