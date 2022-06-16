@@ -3,16 +3,10 @@
 $LOAD_PATH << './lib'
 require 'sinatra'
 
-require 'omniauth'
-require 'omniauth_openid_connect'
 require 'query'
 require 'search'
 require 'time'
-
-enable :sessions
-set :session_secret, ENV['RACK_SESSION_SECRET']
-
-require 'auth'
+require 'authn_authz'
 
 get '/' do
   @indexes = params[:indexes] || []
