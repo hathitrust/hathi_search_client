@@ -1,16 +1,23 @@
+# frozen_string_literal: true
+
 # Mostly copied and pasted from https://github.com/mlibrary/oidc_omniauth_demo
+
+require 'omniauth'
+require 'omniauth_openid_connect'
+
+enable :sessions
+set :session_secret, ENV.fetch('RACK_SESSION_SECRET', nil)
 
 use OmniAuth::Builder do
   provider :openid_connect, {
-    issuer: ENV['OIDC_ISSUER'],
+    issuer: ENV.fetch('OIDC_ISSUER', nil),
     discovery: true,
     client_auth_method: 'query',
-    scope: [:openid, :profile, :email],
+    scope: %i[openid profile email],
     client_options: {
-      identifier: ENV['OIDC_CLIENT_ID'],
-      secret: ENV['OIDC_CLIENT_SECRET'],
-      # TODO calculate from env?
-      redirect_uri: ENV['OIDC_REDIRECT_URI'] || "http://localhost:4567/auth/openid_connect/callback"
+      identifier: ENV.fetch('OIDC_CLIENT_ID', nil),
+      secret: ENV.fetch('OIDC_CLIENT_SECRET', nil),
+      redirect_uri: ENV.fetch('OIDC_REDIRECT_URI', nil) || 'http://localhost:4567/auth/openid_connect/callback'
     }
   }
 end
@@ -25,7 +32,7 @@ get '/auth/openid_connect/callback' do
 end
 
 get '/auth/failure' do
-  "You are not authorized"
+  'You are not authorized'
 end
 
 get '/login' do
@@ -41,7 +48,7 @@ get '/login' do
     <body>
       <h1>Logging You In...<h1>
       <form id="login_form" method="post" action="/auth/openid_connect">
-        <input type="hidden" name="authenticity_token" value="#{request.env["rack.session"]["csrf"]}">
+        <input type="hidden" name="authenticity_token" value="#{request.env['rack.session']['csrf']}">
         <noscript>
           <button type="submit">Login</button>
         </noscript>
@@ -50,15 +57,18 @@ get '/login' do
   HTML
 end
 
-before  do
-  #pass if the first part of the path is exempted from authentication;
-  #in this case any paths under 'auth' should be exempted
-  pass if ['auth','login'].include? request.path_info.split('/')[1]
+def authorize!
+  halt 403 unless Services.users.include? session.fetch('info')&.fetch('email')
+end
+
+before do
+  # pass if the first part of the path is exempted from authentication;
+  # in this case any paths under 'auth' should be exempted
+  pass if %w[auth login].include? request.path_info.split('/')[1]
 
   if !session[:authenticated] || Time.now.utc > session[:expires_at]
     redirect '/login'
   else
-    pass
+    authorize!
   end
-
 end
