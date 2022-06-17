@@ -17,4 +17,4 @@ Services.register(:rights_db) { RightsDatabase::RightsDB.new }
 Services.register(:rights) { RightsDatabase::Rights }
 Services.register(:rights_attributes) { RightsDatabase::RightsAttributes.new }
 Services.register(:rights_reasons) { RightsDatabase::RightsReasons.new }
-Services.register(:users) { File.readlines(ENV['USERS_FILE']).map(&:chomp).to_set }
+Services.register(:users) { File.readlines(ENV.fetch('USERS_FILE', nil)).map(&:chomp).to_set }

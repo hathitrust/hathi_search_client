@@ -35,7 +35,7 @@ RSpec.describe Search do
     end
 
     it 'joins multiple subjects with ;' do
-      rec = CatalogRecord.new_from_doc(JSON.parse(File.open('spec/data/fullrecord.json').read))
+      rec = CatalogRecord.new_from_doc(JSON.parse(File.read('spec/data/fullrecord.json')))
       s.records = [rec]
       expect(s.records_to_tsv.first.split("\t")[6]).to eq(rec.subject.join('; '))
     end
