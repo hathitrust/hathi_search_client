@@ -16,7 +16,7 @@ module RightsDatabase
     attr_reader :rawdb
     attr_accessor :connection_string
 
-    def initialize(connection_string = ENV['DB_CONNECTION_STRING'], **kwargs)
+    def initialize(connection_string = ENV.fetch('DB_CONNECTION_STRING', nil), **kwargs)
       @rawdb = self.class.connection(connection_string, **kwargs)
       super(@rawdb)
     end
@@ -35,7 +35,7 @@ module RightsDatabase
     #   port: DB_PORT
     #   database: DB_DATABASE
     #   adapter: DB_ADAPTER
-    def self.connection(connection_string = ENV['DB_CONNECTION_STRING'],
+    def self.connection(connection_string = ENV.fetch('DB_CONNECTION_STRING', nil),
                         **kwargs)
 
       if connection_string.nil?
@@ -56,7 +56,7 @@ module RightsDatabase
       def gather_db_args(args)
         %i[user password host
            port database adapter].each do |db_arg|
-          args[db_arg] ||= ENV["DB_#{db_arg.to_s.upcase}"]
+          args[db_arg] ||= ENV.fetch("DB_#{db_arg.to_s.upcase}", nil)
         end
 
         args[:host] ||= 'localhost'
