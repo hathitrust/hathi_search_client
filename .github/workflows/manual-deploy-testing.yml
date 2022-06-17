@@ -20,7 +20,7 @@ jobs:
         fetch-depth: 0
     - name: Check that the tag exists in repo
       id: tag_check
-      uses: hathitrust/github_actions/validate_tag@main
+      uses: hathitrust/github_actions/validate-tag@v1
       with:
         tag: ${{ github.event.inputs.tag }}
     - name: Log into Github Container Registry
