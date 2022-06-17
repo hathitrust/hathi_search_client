@@ -6,16 +6,9 @@ require 'sinatra'
 require 'query'
 require 'search'
 require 'time'
+require 'authn_authz'
 
-def authenticate!
-  halt 403 unless Services.users.include? request.get_header('HTTP_X_REMOTE_USER')
-end
-
-before do
-  authenticate!
-end
-
-get '/search-client' do
+get '/' do
   @indexes = params[:indexes] || []
   @terms = (params[:terms] || []).reject { |t| t == '' }
   if @indexes.any? && @terms.any?
