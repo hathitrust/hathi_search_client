@@ -15,7 +15,7 @@ class Search
   Dotenv.load
 
   def initialize(indexes, terms)
-    @fields = 'id,ht_json,fullrecord,sdrnum,title,author,publishDate,publisher,topicStr'
+    @fields = 'id,ht_json,fullrecord,sdrnum,title,author,publishDate,publisher,topic'
     @indexes = indexes
     @terms = terms
     @page = 0
