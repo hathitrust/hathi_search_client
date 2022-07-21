@@ -18,6 +18,9 @@ services:
     env_file:
       - .env
 
+  solr-catalog:
+    image: ghcr.io/hathitrust/catalog-solr-sample
+ 
   mariadb:
     image: ghcr.io/hathitrust/db-image
     restart: always

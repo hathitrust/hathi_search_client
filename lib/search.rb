@@ -7,6 +7,7 @@ require 'uri'
 require 'catalog_record'
 require 'json'
 require 'services'
+require 'solr/cursorstream'
 
 class Search
   attr_accessor :indexes, :terms, :page, :page_size, :fields, :query
@@ -23,38 +24,11 @@ class Search
     @query = Query.new(@indexes, @terms)
   end
 
-  def search_uri(num_rows = page_size)
-    base = '/solr/catalog/select?'
-    enum = [['q', @query.to_str],
-            ['rows', num_rows],
-            ['start', page_start],
-            %w[wt json],
-            ['json.nl', 'arrarr'],
-            ['fl', fields]]
-    base + URI.encode_www_form(enum)
-  end
-
-  def page_start
-    @page * @page_size
-  end
-
   def num_results
     return @num_results unless @num_results.nil?
 
-    response = JSON.parse(Services.solr_catalog.get(search_uri(0)).body)
+    response = JSON.parse(Services.solr_catalog.get(search_uri).body)
     @num_results = response['response']['numFound']
-  end
-
-  def records
-    return @records unless @records.nil?
-
-    @records = []
-    while num_results > page_start
-      response = JSON.parse(Services.solr_catalog.get(search_uri).body)
-      response['response']['docs'].map { |doc| @records << CatalogRecord.new_from_doc(doc) }
-      @page += 1
-    end
-    @records
   end
 
   def header
@@ -75,7 +49,11 @@ class Search
   def records_to_tsv
     return to_enum(:records_to_tsv) unless block_given?
 
-    records.each do |rec|
+    cs = Solr::CursorStream.new(url: SolrCatalog.new.core_url)
+    cs.fields = fields
+    cs.query = query.to_str
+    cs.each do |doc|
+      rec = CatalogRecord.new_from_doc(doc)
       rec.ht_items.each do |ht_item|
         yield [rec.zephir_cid,
                rec.rec_src_code,
@@ -91,5 +69,19 @@ class Search
                ht_item.rights_reason].join("\t")
       end
     end
+  end
+
+  private
+
+  # Only used by num_results
+  def search_uri
+    base = '/solr/catalog/select?'
+    enum = [['q', @query.to_str],
+            ['rows', 10],
+            ['start', 0],
+            %w[wt json],
+            ['json.nl', 'arrarr'],
+            ['fl', fields]]
+    base + URI.encode_www_form(enum)
   end
 end

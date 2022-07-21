@@ -9,13 +9,18 @@ class Query
     @terms = terms
   end
 
-  def to_str
+  def to_a
+    q_list = []
     q_list = []
     indexes.each do |index|
       terms.each do |term|
         q_list << [index, "\"#{term.gsub('"', '')}\""].join(':')
       end
     end
-    q_list.join(' OR ')
+    q_list
+  end
+
+  def to_str
+    to_a.join(' OR ')
   end
 end

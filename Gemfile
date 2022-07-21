@@ -15,6 +15,7 @@ gem 'sinatra'
 gem 'sequel'
 gem 'mysql2'
 gem 'marc'
+gem 'solr_cursorstream'
 
 group :development, :test do
   gem 'pry'

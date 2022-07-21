@@ -23,8 +23,17 @@ GEM
     dotenv (2.7.6)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
+    faraday (2.3.0)
+      faraday-net_http (~> 2.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (2.0.3)
+    faraday-retry (2.0.0)
+      faraday (~> 2.0)
     hashie (5.0.0)
+    http-2-next (0.5.0)
     httpclient (2.8.3)
+    httpx (0.20.3)
+      http-2-next (>= 0.4.1)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     json-jwt (1.13.0)
@@ -38,6 +47,7 @@ GEM
       scrub_rb (>= 1.0.1, < 2)
       unf
     method_source (1.0.0)
+    milemarker (1.0.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
     mustermann (1.1.1)
@@ -128,6 +138,11 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.2.0)
       tilt (~> 2.0)
+    solr_cursorstream (0.1.1)
+      faraday
+      faraday-retry
+      httpx
+      milemarker
     swd (1.3.0)
       activesupport (>= 3)
       attr_required (>= 0.0.5)
@@ -170,6 +185,7 @@ DEPENDENCIES
   sequel
   simplecov
   sinatra
+  solr_cursorstream
 
 BUNDLED WITH
    2.3.6
