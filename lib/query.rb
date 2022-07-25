@@ -14,13 +14,13 @@ class Query
     q_list = []
     indexes.each do |index|
       terms.each do |term|
-        q_list << [index, "\"#{term.gsub('"', '')}\""].join(':')
+        q_list << [index, "\"#{term.delete('"')}\""].join(":")
       end
     end
     q_list
   end
 
   def to_str
-    to_a.join(' OR ')
+    to_a.join(" OR ")
   end
 end
