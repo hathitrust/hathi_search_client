@@ -1,3 +1,9 @@
 Metrics/ParameterLists:
   Exclude:
     - 'lib/rights_database/rights.rb'
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/search.rb'
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/search.rb'
