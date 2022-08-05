@@ -15,6 +15,7 @@ jobs:
       - uses: hathitrust/github_actions/build@v1
         with:
           image: ghcr.io/hathitrust/search-client-unstable
+          dockerfile: Dockerfile.prod
           tag: ${{ github.event.inputs.tag }}
           push_latest: false
           registry_token: ${{ github.token }}
