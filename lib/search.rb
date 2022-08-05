@@ -77,7 +77,7 @@ class Search
   def search_uri
     base = "/solr/catalog/select?"
     enum = [["q", @query.to_str],
-      ["rows", 10],
+      ["rows", 0],
       ["start", 0],
       %w[wt json],
       ["json.nl", "arrarr"],
