@@ -1,9 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (7.0.2.4)
-      activesupport (= 7.0.2.4)
-    activesupport (7.0.2.4)
+    activemodel (7.0.3.1)
+      activesupport (= 7.0.3.1)
+    activesupport (7.0.3.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -34,9 +34,10 @@ GEM
     httpclient (2.8.3)
     httpx (0.20.3)
       http-2-next (>= 0.4.1)
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    json-jwt (1.13.0)
+    json (2.6.2)
+    json-jwt (1.14.0)
       activesupport (>= 4.2)
       aes_key_wrap
       bindata
@@ -49,8 +50,8 @@ GEM
     method_source (1.0.0)
     milemarker (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.15.0)
-    mustermann (1.1.1)
+    minitest (5.16.2)
+    mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.4)
     net-protocol (0.1.3)
@@ -87,17 +88,17 @@ GEM
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
-    rack (2.2.3.1)
-    rack-oauth2 (1.19.0)
+    rack (2.2.4)
+    rack-oauth2 (1.21.2)
       activesupport
       attr_required
       httpclient
       json-jwt (>= 1.11.0)
       rack (>= 2.1.0)
-    rack-protection (2.2.0)
+    rack-protection (2.2.2)
       rack
     rainbow (3.1.1)
-    regexp_parser (2.3.1)
+    regexp_parser (2.5.0)
     rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -112,53 +113,62 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
     rspec-support (3.11.0)
-    rubocop (1.28.2)
+    rubocop (1.31.2)
+      json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
-      rexml
-      rubocop-ast (>= 1.17.0, < 2.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.18.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.17.0)
+    rubocop-ast (1.19.1)
       parser (>= 3.1.1.0)
+    rubocop-performance (1.14.3)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     scrub_rb (1.0.1)
-    sequel (5.56.0)
+    sequel (5.58.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sinatra (2.2.0)
-      mustermann (~> 1.0)
+    sinatra (2.2.2)
+      mustermann (~> 2.0)
       rack (~> 2.2)
-      rack-protection (= 2.2.0)
+      rack-protection (= 2.2.2)
       tilt (~> 2.0)
     solr_cursorstream (0.1.1)
       faraday
       faraday-retry
       httpx
       milemarker
+    standard (1.13.0)
+      rubocop (= 1.31.2)
+      rubocop-performance (= 1.14.3)
+    standardrb (1.0.1)
+      standard
     swd (1.3.0)
       activesupport (>= 3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.4)
-    tilt (2.0.10)
-    timeout (0.2.0)
-    tzinfo (2.0.4)
+    tilt (2.0.11)
+    timeout (0.3.0)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.1)
-    unicode-display_width (2.1.0)
+    unf_ext (0.0.8.2)
+    unicode-display_width (2.2.0)
     validate_email (0.1.6)
       activemodel (>= 3.0)
       mail (>= 2.2.5)
-    validate_url (1.0.13)
+    validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
     webfinger (1.2.0)
@@ -166,7 +176,7 @@ GEM
       httpclient (>= 2.4)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
   canister
@@ -181,11 +191,11 @@ DEPENDENCIES
   pry
   puma
   rspec
-  rubocop
   sequel
   simplecov
   sinatra
   solr_cursorstream
+  standardrb
 
 BUNDLED WITH
-   2.3.6
+   2.3.18
