@@ -11,10 +11,28 @@ services:
       - gem_cache:/gems
     depends_on:
       - mariadb
+      - solr-catalog
     command: bundle exec ruby search_client.rb -o 0.0.0.0
     environment:
       DB_CONNECTION_STRING: "mysql2://ht_rights:ht_rights@mariadb/ht"
-      USERS_FILE: "config/users"
+      SKIP_AUTH: "true"
+    env_file:
+      - .env
+
+  test:
+    build: .
+    ports:
+      - "4567:4567"
+    volumes:
+      - .:/usr/src/app
+      - gem_cache:/gems
+    depends_on:
+      - mariadb
+      - solr-catalog
+    command: bin/wait-for mariadb:3306 solr-catalog:9033 -- bundle exec rspec
+    environment:
+      DB_CONNECTION_STRING: "mysql2://ht_rights:ht_rights@mariadb/ht"
+      SKIP_AUTH: "true"
     env_file:
       - .env
 

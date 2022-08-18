@@ -31,7 +31,11 @@ module RightsDatabase
     end
 
     def [](reason)
-      @reasons[reason]
+      @reasons[reason] || unknown
+    end
+
+    def unknown
+      @unknown ||= Reason.new(id: nil, name: "unknown", dscr: "Not in rights database")
     end
   end
 end

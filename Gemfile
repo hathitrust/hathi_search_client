@@ -21,6 +21,7 @@ group :development, :test do
   gem "pry"
   gem "standardrb"
   gem "rspec"
+  gem "rack-test"
   gem "simplecov"
   gem "factory_bot"
 end

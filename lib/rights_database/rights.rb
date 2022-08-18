@@ -7,27 +7,16 @@ module RightsDatabase
   class Rights
     attr_accessor :item_id, :attribute, :reason, :source, :time, :note, :access_profile, :user, :namespace, :id
 
-    def initialize(item_id:, attribute: nil, reason: nil, source: nil, time: nil, note: nil, access_profile: nil,
-      user: nil)
+    def initialize(item_id:)
       @item_id = item_id
       @namespace, @id = @item_id.split(/\./, 2)
-      if @attribute.nil?
-        load_from_db
-      else
-        @attribute = attribute
-        @reason = reason
-        @source = source
-        @time = time
-        @note = note
-        @access_profile = access_profile
-        @user = user
-      end
+      load_from_db
     end
 
     def load_from_db
       rights = Services.rights_db[:rights_current]
         .where(:namespace => namespace, Sequel.qualify(:rights_current, :id) => id)
-        .first
+        .first || unknown_rights
       rights.each do |k, v|
         case k
         when :reason
@@ -38,6 +27,21 @@ module RightsDatabase
           public_send("#{k}=", v)
         end
       end
+    end
+
+    # null object for items missing rights
+    def unknown_rights
+      {
+        namespace: namespace,
+        id: id,
+        attr: nil,
+        reason: nil,
+        source: nil,
+        time: nil,
+        note: "Item not in rights database",
+        access_profile: nil,
+        user: nil
+      }
     end
   end
 end
