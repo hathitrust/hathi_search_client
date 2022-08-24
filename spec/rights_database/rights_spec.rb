@@ -10,5 +10,11 @@ RSpec.describe RightsDatabase::Rights do
       expect(item_rights.attribute.id).to eq(22)
       expect(item_rights.reason.id).to eq(3)
     end
+
+    it "returns an 'unknown' code when the item isn't in rights" do
+      item_rights = RightsDatabase::Rights.new(item_id: "test.nonexistent")
+      expect(item_rights.attribute.name).to eq("unknown")
+      expect(item_rights.reason.name).to eq("unknown")
+    end
   end
 end

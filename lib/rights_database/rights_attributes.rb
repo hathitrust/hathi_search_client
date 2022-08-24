@@ -33,7 +33,11 @@ module RightsDatabase
     end
 
     def [](attr)
-      @attributes[attr]
+      @attributes[attr] || unknown
+    end
+
+    def unknown
+      @unknown ||= Attribute.new(id: nil, type: nil, name: "unknown", dscr: "Not in rights database")
     end
   end
 end

@@ -65,6 +65,8 @@ before do
   # pass if the first part of the path is exempted from authentication;
   # in this case any paths under 'auth' should be exempted
   pass if %w[auth login].include? request.path_info.split("/")[1]
+  # pass if in dev/testing and we explicitly say we should skip authentication
+  pass if settings.environment != :production && ENV["SKIP_AUTH"] == "true"
 
   if !session[:authenticated] || Time.now.utc > session[:expires_at]
     redirect "/login"

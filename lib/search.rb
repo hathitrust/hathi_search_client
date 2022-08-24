@@ -43,31 +43,36 @@ class Search
       item_pub_date
       enum_chron
       rights
-      reason].join("\t")
+      reason].join("\t") + "\n"
   end
 
-  def records_to_tsv
-    return to_enum(:records_to_tsv) unless block_given?
+  def records_to_tsv(&block)
+    return to_enum(__method__) unless block
 
     cs = Solr::CursorStream.new(url: SolrCatalog.new.core_url)
     cs.fields = fields
     cs.query = query.to_str
     cs.each do |doc|
-      rec = CatalogRecord.new_from_doc(doc)
-      rec.ht_items.each do |ht_item|
-        yield [rec.zephir_cid,
-          rec.rec_src_code,
-          rec.title,
-          rec.authors.join("; "),
-          rec.publisher.join("; "),
-          rec.title_pub_date,
-          rec.subject.join("; "),
-          ht_item.ht_id,
-          ht_item.pub_date,
-          ht_item.enum_chron,
-          ht_item.rights_attribute,
-          ht_item.rights_reason].join("\t")
-      end
+      record_to_tsv(CatalogRecord.new_from_doc(doc)).each(&block)
+    end
+  end
+
+  def record_to_tsv(rec)
+    return to_enum(__method__, rec) unless block_given?
+
+    rec.ht_items.each do |ht_item|
+      yield [rec.zephir_cid,
+        rec.rec_src_code,
+        rec.title,
+        rec.authors.join("; "),
+        rec.publisher.join("; "),
+        rec.title_pub_date,
+        rec.subject.join("; "),
+        ht_item.ht_id,
+        ht_item.pub_date,
+        ht_item.enum_chron,
+        ht_item.rights_attribute,
+        ht_item.rights_reason].join("\t")
     end
   end
 
