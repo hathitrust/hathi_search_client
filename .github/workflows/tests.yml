@@ -33,3 +33,5 @@ jobs:
       - name: Run tests
         run: docker-compose run test
 
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
