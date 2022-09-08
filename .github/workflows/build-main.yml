@@ -7,7 +7,7 @@ on:
     types: [ completed ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,3 +21,19 @@ jobs:
           tag: ${{ github.sha }}
           push_latest: true
           registry_token: ${{ github.token }}
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+    - name: Deploy to ${{ env.environment }}
+      uses: mlibrary/deploy-to-kubernetes@v2
+      with:
+        github_username: ${{ github.actor }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        image: ghcr.io/hathitrust/search-client-unstable:${{ github.sha }}
+        cluster_ca: ${{ secrets.KUBERNETES_CA }}
+        cluster_server: ${{ secrets.KUBERNETES_SERVER }}
+        namespace_token: ${{ secrets.KUBERNETES_TOKEN }}
+        namespace: ${{ secrets.KUBERNETES_NAMESPACE }}
