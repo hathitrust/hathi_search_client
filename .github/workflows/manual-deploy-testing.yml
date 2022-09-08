@@ -39,11 +39,11 @@ jobs:
         with:
           tag: ${{ github.event.inputs.tag }}
       - name: Deploy to ${{ env.environment }}
-        uses: mlibrary/deploy-to-kubernetes@v1
+        uses: mlibrary/deploy-to-kubernetes@v2
         with:
           github_username: ${{ github.actor }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          image: hathitrust/search-client-unstable:${{ steps.tag_check.outputs.tag }}
+          image: ghcr.io/hathitrust/search-client-unstable:${{ steps.tag_check.outputs.tag }}
           cluster_ca: ${{ secrets.KUBERNETES_CA }}
           cluster_server: ${{ secrets.KUBERNETES_SERVER }}
           namespace_token: ${{ secrets.KUBERNETES_TOKEN }}

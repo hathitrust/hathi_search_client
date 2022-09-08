@@ -1,0 +1,24 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: Deploy to ${{ env.environment }}
+      uses: mlibrary/deploy-to-kubernetes@v2
+      with:
+        github_username: ${{ github.actor }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        image: ghcr.io/hathitrust/search-client:${{ github.event.inputs.tag }}
+        cluster_ca: ${{ secrets.KUBERNETES_CA }}
+        cluster_server: ${{ secrets.KUBERNETES_SERVER }}
+        namespace_token: ${{ secrets.KUBERNETES_TOKEN }}
+        namespace: ${{ secrets.KUBERNETES_NAMESPACE }}
