@@ -15,8 +15,8 @@ jobs:
     - name: Deploy to ${{ env.environment }}
       uses: mlibrary/deploy-to-kubernetes@v2
       with:
-        github_username: ${{ github.actor }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        registry_username: ${{ github.actor }}
+        registry_token: ${{ secrets.GITHUB_TOKEN }}
         image: ghcr.io/hathitrust/search-client:${{ github.event.inputs.tag }}
         cluster_ca: ${{ secrets.KUBERNETES_CA }}
         cluster_server: ${{ secrets.KUBERNETES_SERVER }}
