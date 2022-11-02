@@ -12,7 +12,7 @@ jobs:
   build_manual:
     runs-on: ubuntu-latest
     steps:
-      - uses: hathitrust/github_actions/build@address-deprecations
+      - uses: hathitrust/github_actions/build@v1
         with:
           image: ghcr.io/${{ github.repository }}-unstable
           dockerfile: Dockerfile.prod
