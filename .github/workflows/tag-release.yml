@@ -9,7 +9,7 @@ jobs:
   tag-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: hathitrust/github_actions/tag-release@main
+      - uses: hathitrust/github_actions/tag-release@address-deprecations
         with:
           registry_token: ${{ github.token }}
           existing_tag: ghcr.io/${{ github.repository }}-unstable:${{ github.sha }}
