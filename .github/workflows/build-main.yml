@@ -31,7 +31,7 @@ jobs:
       uses: mlibrary/deploy-to-kubernetes@v3
       with:
         registry_token: ${{ github.token }}
-        image: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        image: ghcr.io/${{ github.repository }}-unstable:${{ github.sha }}
         cluster_ca: ${{ secrets.KUBERNETES_CA }}
         cluster_server: ${{ secrets.KUBERNETES_SERVER }}
         namespace_token: ${{ secrets.KUBERNETES_TOKEN }}
