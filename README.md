@@ -17,7 +17,7 @@ download metadata for the results.
 * Add your OpenID Connect issuer, client ID, and client secret in `.env`
 
 * Add your Solr connection information in `.env` -- this could be a local Solr
-  index running via https://github.com/hathitrust/hathitrust_catalog_indexer,
+  index running via https://github.com/${{ github.repository }}hathitrust_catalog_indexer,
 or something made available locally via SSH or Kubernetes port forwarding.
 
 * Run `docker-compose up -d`

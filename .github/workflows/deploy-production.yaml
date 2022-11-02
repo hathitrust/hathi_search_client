@@ -13,11 +13,10 @@ jobs:
     environment: production
     steps:
     - name: Deploy to ${{ env.environment }}
-      uses: mlibrary/deploy-to-kubernetes@v2
+      uses: mlibrary/deploy-to-kubernetes@v3
       with:
-        registry_username: ${{ github.actor }}
-        registry_token: ${{ secrets.GITHUB_TOKEN }}
-        image: ghcr.io/hathitrust/search-client:${{ github.event.inputs.tag }}
+        registry_token: ${{ github.token }}
+        image: ghcr.io/${{ github.repository }}:${{ github.event.inputs.tag }}
         cluster_ca: ${{ secrets.KUBERNETES_CA }}
         cluster_server: ${{ secrets.KUBERNETES_SERVER }}
         namespace_token: ${{ secrets.KUBERNETES_TOKEN }}

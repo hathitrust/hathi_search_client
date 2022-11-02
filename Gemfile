@@ -23,6 +23,6 @@ group :development, :test do
   gem "rspec"
   gem "rack-test"
   gem "simplecov"
-  gem "simplecov-cobertura"
+  gem "simplecov-lcov"
   gem "factory_bot"
 end
