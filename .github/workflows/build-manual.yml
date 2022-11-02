@@ -12,9 +12,9 @@ jobs:
   build_manual:
     runs-on: ubuntu-latest
     steps:
-      - uses: hathitrust/github_actions/build@v1
+      - uses: hathitrust/github_actions/build@main
         with:
-          image: ghcr.io/hathitrust/search-client-unstable
+          image: ghcr.io/${{ github.repository }}-unstable
           dockerfile: Dockerfile.prod
           tag: ${{ github.event.inputs.tag }}
           push_latest: false
