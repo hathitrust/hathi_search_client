@@ -18,7 +18,7 @@ jobs:
       packages: write
 
     steps:
-      - uses: hathitrust/github_actions/build@main
+      - uses: hathitrust/github_actions/build@address-deprecations
         with:
           dockerfile: Dockerfile.prod
           image: ghcr.io/${{ github.repository }}-unstable
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Find commit for tag
         id: tag_check
-        uses: hathitrust/github_actions/validate-tag@main
+        uses: hathitrust/github_actions/validate-tag@address-deprecations
         with:
           tag: ${{ github.event.inputs.tag }}
       - name: Deploy to ${{ env.environment }}
