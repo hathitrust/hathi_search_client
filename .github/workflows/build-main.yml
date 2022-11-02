@@ -28,7 +28,7 @@ jobs:
     environment: staging
     steps:
     - name: Deploy to ${{ env.environment }}
-      uses: mlibrary/deploy-to-kubernetes@v3
+      uses: mlibrary/deploy-to-kubernetes@fix-deprecations
       with:
         registry_token: ${{ github.token }}
         image: ghcr.io/${{ github.repository }}-unstable:${{ github.sha }}
